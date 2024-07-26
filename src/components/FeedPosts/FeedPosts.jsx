@@ -8,15 +8,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import FeedPost from "./FeedPost";
+import useGetFeedPosts from "../../hooks/useGetFeedPosts";
 
 const FeedPosts = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+const {isLoading , posts}= useGetFeedPosts()
 
   return (
     <Container maxW={"container.sm"} py={"10"} px={2}>
@@ -44,18 +39,9 @@ const FeedPosts = () => {
           </VStack>
         ))}
 
-      {!isLoading && (
-        <div>
-          <FeedPost
-            img="/img1.png"
-            username="burakorkmezz"
-            avatar="/img1.png"
-          />
-          <FeedPost img="/img2.png" username="josh" avatar="/img2.png" />
-          <FeedPost img="/img3.png" username="janedoe" avatar="/img3.png" />
-          <FeedPost img="/img4.png" username="johndoe" avatar="/img4.png" />
-        </div>
-      )}
+      {
+        !isLoading && posts.length>0 && posts.map((post) => <FeedPost key={post.id} post={post}  />)
+      }
     </Container>
   );
 };

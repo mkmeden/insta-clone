@@ -10,62 +10,27 @@ import {
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Signup from "./Signup";
+import Login from "./Login";
+import GoogleAuth from "./GoogleAuth";
 
 const AuthForm = () => {
   const [islogin, setIsLogin] = useState(true);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const handleAuth = () => {
-    if(!inputs.password || !input.email )
-      {
-        alert('Please fill in the fields')
-        return;
-      }
-  };
   return (
     <>
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
         <VStack spacing={4}>
           <Image src="/logo.png" cursor={"pointer"} h={"24"} />
-          <Input
-            placeholder="Email"
-            fontSize={14}
-            value={inputs.email}
-            onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
-          />
-          <Input
-            placeholder="Password"
-            fontSize={14}
-            type="password"
-            value={inputs.password}
-            onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
-          />
-          {!islogin ? (
-            <Input
-              placeholder="Confirm Password"
-              fontSize={14}
-              type="password"
-              value={inputs.confirmPassword}
-              onChange={(e) =>
-                setInputs({ ...inputs, confirmPassword: e.target.value })
-              }
-            />
-          ) : null}
 
-          <Button
-            w={"full"}
-            colorScheme="blue"
-            size={"sm"}
-            onClick={handleAuth}
-          >
-            {islogin ? "Login" : "Sign up"}
-          </Button>
+          {islogin ? <Login /> : <Signup />}
 
           {/* --------OR---------- */}
 
@@ -83,14 +48,7 @@ const AuthForm = () => {
             <Box flex={2} h={"1px"} bg={"grey"} />
           </Flex>
 
-          <Flex
-            alignItems={"center"}
-            justifyContent={"center"}
-            cursor={"pointer"}
-          >
-            <Image src="/google.png" h={5} mx={2} />
-            <Text color={"blue.500"}>Login with google</Text>
-          </Flex>
+          <GoogleAuth islogin = {islogin}/>
         </VStack>
       </Box>
 
