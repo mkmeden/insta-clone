@@ -163,7 +163,7 @@ function useCreatePost() {
 
     try {
       const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
-      const userDocRef = doc(firestore, "users", authUser.uid);
+      const userDocRef = doc(firestore , "users", authUser.uid);
       const imageRef = ref(storage, `posts/${postDocRef.id}`);
       await updateDoc(userDocRef, { posts: arrayUnion(postDocRef.id) });
       await uploadString(imageRef, selectedFile, "data_url");
@@ -173,7 +173,7 @@ function useCreatePost() {
       newPost.imgURL = downloadURL;
       
       
-      if(pathname !=='/' && userProfile.uid ===authUser.uid )
+      if(pathname !=='/' && userProfile.uid ===authUser.uid  )
       addPost({ ...newPost, id: postDocRef.id });
       
       if(userProfile.uid ===authUser.uid)
